@@ -10,15 +10,6 @@ This package is meant to make the process of eco-conscious consumption easier.
   
 The package will consist of different functions all designed to return information about seasonal food. The main function "whatsinseason()" will require 2 arguments: time and place, and it will return a list of produce that is in season for that time and place. 
 
-Here is a simple example: 
-```{r, include=FALSE}
-source("R/in_season_test.R")
-```
-
-```{r}
-whatsinseason("summer", "Netherlands")
-```
-
 ### Ideas for further functions that can be built into this package:  
   
 * Data about the climate impact of each fruit/vegetable.  
