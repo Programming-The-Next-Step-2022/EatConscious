@@ -1,3 +1,4 @@
+## What's in Season? 
 
 An important step in becoming more eco-friendly is to consume local and seasonal produce.  
 This package is meant to make the process of eco-conscious consumption easier.  
