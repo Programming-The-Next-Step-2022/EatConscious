@@ -4,20 +4,25 @@
 
 # Required packages ------------------------------------------------------------
 
-require(httr)
-require(jsonlite)
-require(dplyr)
-require(ggplot2)
-require(magick)
-require(patchwork)
+#' @import httr
+#' @import dplyr
+#' @import ggplot2
+#' @import patchwork
+#' @importFrom jsonlite readJSON
+NULL
+#' @importFrom magick image_read
+NULL
 
+# ------------------------------------------------------------------------------
+# search_food
+# ------------------------------------------------------------------------------
 
-# Search for food items --------------------------------------------------------
-
-#' The function \emph{search_food} Searches for a specified foot item and returns a list of hits matching the search query, as well as a picture of the item.
+#' \emph{search_food}: search for food items.
 #'
 #' @param food The food item, inputed as a string, that you would like to search for.
 #' @return A table of nutritional information for each search hit and a picture of the first hit.
+#' @examples
+#' search_food("potato")
 #'
 #' @export
 search_food <- function(food) {
@@ -46,10 +51,11 @@ search_food <- function(food) {
   print(as.data.frame(search_result[,3:8]))
 
 }
+# ------------------------------------------------------------------------------
+# get_nutrients
+# ------------------------------------------------------------------------------
 
-# Get nutrional information for food items  ------------------------------------
-
-#' The function \emph{get_nutrients} Returns a table of nutritional information for a specified food item.
+#' \emph{get_nutrients}: get nutritional information for food items.
 #'
 #' @param food  The food item, inputed as a string, you would like to search for.
 #'
@@ -61,6 +67,9 @@ search_food <- function(food) {
 #'                "fibre" = amount of fibre in grams.
 #'                "all" = all nutrional information.
 #' @return A table of nutritional information for the food item.
+#' @examples
+#' get_nutrients("potato", "all") # get all nutritional information for all search hits of "potato"
+#' get_nutrients("potato", "fibre")[1,] # get fibre information for the first search hit of "potato"
 #'
 #' @export
 get_nutrients <- function(food, measure) {
@@ -102,9 +111,11 @@ get_nutrients <- function(food, measure) {
 
 }
 
-# Compare nutrional information of food items  ---------------------------------
+# ------------------------------------------------------------------------------
+# compare_nutrients
+# ------------------------------------------------------------------------------
 
-#' The function \emph{compare_nutrients} Returns a plot that compares two food items based on their nutritional information.
+#' \emph{compare_nutrients}: compare the nutritional information of two food items.
 #'
 #' @param itemA The first food item, inputed as a string, which you'd like to compare.
 #' @param itemB The second food item, inputed as a string, which you'd like to compare.
@@ -115,7 +126,8 @@ get_nutrients <- function(food, measure) {
 #'                "carbohydrates" = amount of carbohydrates in grams.
 #'                "fibre" = amount of fibre in grams.
 #' @return A barplot with the two items on the x-axis and the specified nutritional measure on the y-axis.
-#'
+#' @examples
+#' compare_nutrients("potato", "sweet potato", "carbohydrates")
 #' @export
 compare_nutrients <- function(itemA, itemB, measure) {
 
@@ -132,11 +144,15 @@ compare_nutrients <- function(itemA, itemB, measure) {
 
 }
 
-# Plot nutritional information of food items  ----------------------------------
+# ------------------------------------------------------------------------------
+# plot_nutrients
+# ------------------------------------------------------------------------------
 
-#' #' The function \emph{plot_nutrients} returns two plots with nutritional information of a specified food item.
+#' \emph{plot_nutrients}: plot the nutritional information of a specified food item.
 #' @param food The food item as a string.
 #' @return Two pie charts with the percentage of nutrients based on the recommended daily intake that one serving of the food item gives.
+#' @examples
+#' plot_nutrients("potato")
 #'
 #' @export
 plot_nutrients <- function(food) {
@@ -195,12 +211,15 @@ plot_nutrients <- function(food) {
 
 
 # ============================================================================ #
+# ============================================================================ #
+# ============================================================================ #
 
 # notes
 
 # a way to not require string input in argument?
 # make default and optional arguments in functions? (e.g. "all" default if nothing else specified)
 # get_nutrients and search_food too similar, find way to make different!
+# make error messages
 
 
 
