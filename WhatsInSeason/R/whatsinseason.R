@@ -1,18 +1,21 @@
-# Hello, world!
-#
-# This is an example function named 'hello' 
-# which prints 'Hello, world!'.
-#
-# You can learn more about package authoring with RStudio at:
-#
-#   http://r-pkgs.had.co.nz/
-#
-# Some useful keyboard shortcuts for package authoring:
-#
-#   Install Package:           'Cmd + Shift + B'
-#   Check Package:             'Cmd + Shift + E'
-#   Test Package:              'Cmd + Shift + T'
-
-hello <- function() {
-  print("Hello, world!")
-}
+#' WhatsInSeason: Food information for seasonal and healthy eating!
+#'
+#' @section Seasonal Food Functions:
+#'
+#'
+#' @section Nutrition Functions:
+#'
+#'With the nutrition functions, you can:
+#'
+#'    Search for foods and their corresponding nutritional information with \emph{search_food()}
+#'
+#'    Get specific nutritional information for food items with \emph{get_nutrients()}
+#'
+#'    Compare nutritional information of two different food items with \emph{compare_nutrients()}
+#'
+#'    Plot nutritional information of a food item with \emph{plot_nutrients()}
+#'
+#' @docType package
+#' @name WhatsInSeason
+NULL
+#> NULL
