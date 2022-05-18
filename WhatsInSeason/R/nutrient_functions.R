@@ -27,6 +27,9 @@ NULL
 #' @export
 search_food <- function(food) {
 
+  food <- enquo(food)
+  food <- as.character(food)[2]
+
   url <- "https://edamam-food-and-grocery-database.p.rapidapi.com/parser"
   queryString <- list(ingr = food)
   food_raw <- VERB("GET", url,
@@ -73,6 +76,11 @@ search_food <- function(food) {
 #'
 #' @export
 get_nutrients <- function(food, measure) {
+
+  food <- enquo(food)
+  food <- as.character(food)[2]
+  measure <- enquo(measure)
+  measure <- as.character(measure)[2]
 
   url <- "https://edamam-food-and-grocery-database.p.rapidapi.com/parser"
 
@@ -131,11 +139,18 @@ get_nutrients <- function(food, measure) {
 #' @export
 compare_nutrients <- function(itemA, itemB, measure) {
 
-  a <- get_nutrients(itemA, "all")[1,]
-  b <- get_nutrients(itemB, "all")[1,]
+  # itemA <- enquo(itemA)
+  # itemA <- as.character(itemA)[2]
+  # itemB <- enquo(itemB)
+  # itemB <- as.character(itemB)[2]
+  # measure <- enquo(measure)
+  # measure <- as.character(measure)[2]
+
+  a <- get_nutrients(itemA, all)[1,]
+  b <- get_nutrients(itemB, all)[1,]
   dat <- rbind(a, b)
 
-  ggplot(data = dat, aes(x = label, y = dat[, measure])) +
+  ggplot(data = dat, aes(x = label, y = as.numeric(dat[, measure]))) +
     geom_bar(stat = "identity", aes(fill = label)) +
     ylab(measure) +
     theme_minimal() +
@@ -156,6 +171,10 @@ compare_nutrients <- function(itemA, itemB, measure) {
 #'
 #' @export
 plot_nutrients <- function(food) {
+
+  food <- enquo(food)
+  food <- as.character(food)[2]
+
   url <- "https://edamam-food-and-grocery-database.p.rapidapi.com/parser"
   queryString <- list(ingr = food)
   food_raw <- VERB("GET", url,
@@ -220,6 +239,7 @@ plot_nutrients <- function(food) {
 # make default and optional arguments in functions? (e.g. "all" default if nothing else specified)
 # get_nutrients and search_food too similar, find way to make different!
 # make error messages
+# update documentation on get_nutrients (all does not need to be specified)
 
 
 

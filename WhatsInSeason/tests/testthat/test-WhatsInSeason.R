@@ -2,13 +2,20 @@ library(WhatsInSeason)
 
 context("Core WhatsInSeason functionality")
 
-# test_that("search_food returns the correct search hit", {
-#
-# })
-
-test_that("search_food returns a table of the correct length", {
+test_that("search_food returns the corresponding search hit", {
 
   sf <- search_food("potato")
-  expect_equal(length(sf), 6)
+  expect_equal(adist(sf[1, 1], "potato", ignore.case = TRUE)[1], 0)
 
 })
+
+test_that("all search results contain search query", {
+
+  sf <- search_food("potato")$label
+  expect_equal(length(grepl("potato", sf, ignore.case = TRUE)), 9)
+
+})
+
+
+
+
