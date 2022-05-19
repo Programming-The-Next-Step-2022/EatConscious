@@ -25,10 +25,7 @@ NULL
 #' search_food("potato")
 #'
 #' @export
-search_food <- function(food) {
-
-  food <- enquo(food)
-  food <- as.character(food)[2]
+search_food <- function(food, picture = TRUE) {
 
   url <- "https://edamam-food-and-grocery-database.p.rapidapi.com/parser"
   queryString <- list(ingr = food)
@@ -44,16 +41,21 @@ search_food <- function(food) {
   search_result <- data.frame(matrix(unlist(search_result), nrow=nrow(search_result), byrow=FALSE))
   colnames(search_result) = c("ID", "url", "label", "calories", "percent_nutrients", "fat", "carbohydrates",
                               "fibre", "category", "cat_label", "image", "contents_label", "brand")
-
   search_result <- search_result %>%
     filter(category == "Generic foods")
 
-  img_url <- (search_result)$image[1]
-  pic <- image_read(img_url)
-  print(pic)
-  print(as.data.frame(search_result[,3:8]))
+  if (picture == TRUE) {
+    img_url <- search_result$image[1]
+    pic <- image_read(img_url)
+    print(pic)
+  }
+
+  search_result <- as.data.frame(search_result[,3:8])
+  return(search_result)
 
 }
+
+
 # ------------------------------------------------------------------------------
 # get_nutrients
 # ------------------------------------------------------------------------------
@@ -139,15 +141,19 @@ get_nutrients <- function(food, measure) {
 #' @export
 compare_nutrients <- function(itemA, itemB, measure) {
 
-  # itemA <- enquo(itemA)
-  # itemA <- as.character(itemA)[2]
-  # itemB <- enquo(itemB)
-  # itemB <- as.character(itemB)[2]
-  # measure <- enquo(measure)
-  # measure <- as.character(measure)[2]
+  itemA <- enquo(itemA)
+  itemA <- as.character(itemA)[2]
+  itemB <- enquo(itemB)
+  itemB <- as.character(itemB)[2]
+  measure <- enquo(measure)
+  measure <- as.character(measure)[2]
 
-  a <- get_nutrients(itemA, all)[1,]
-  b <- get_nutrients(itemB, all)[1,]
+  # a <- get_nutrients(itemA, all)[1,]
+  # b <- get_nutrients(itemB, all)[1,]
+  # dat <- rbind(a, b)
+
+  a <- search_food(itemA, picture = FALSE)[1,]
+  b <- search_food(itemB, picture = FALSE)[1,]
   dat <- rbind(a, b)
 
   ggplot(data = dat, aes(x = label, y = as.numeric(dat[, measure]))) +
