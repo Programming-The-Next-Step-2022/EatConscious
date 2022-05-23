@@ -20,12 +20,19 @@ NULL
 #' \emph{search_food}: search for food items.
 #'
 #' @param food The food item, inputed as a string, that you would like to search for.
+#' @param picture Logical argument. Should a picture accompany the search result? Default = TRUE.
 #' @return A table of nutritional information for each search hit and a picture of the first hit.
 #' @examples
 #' search_food("potato")
 #'
 #' @export
 search_food <- function(food, picture = TRUE) {
+
+  enquo(food)
+  if (mode(food) != "character") {
+    stop ("search query must be entered as a string")
+  }
+
 
   url <- "https://edamam-food-and-grocery-database.p.rapidapi.com/parser"
   queryString <- list(ingr = food)
@@ -39,7 +46,7 @@ search_food <- function(food, picture = TRUE) {
   search_result <- search_result %>%
     select(-measures)
   search_result <- data.frame(matrix(unlist(search_result), nrow=nrow(search_result), byrow=FALSE))
-  colnames(search_result) = c("ID", "url", "label", "calories", "percent_nutrients", "fat", "carbohydrates",
+  colnames(search_result) = c("ID", "url", "search_result", "calories", "percent_nutrients", "fat", "carbohydrates",
                               "fibre", "category", "cat_label", "image", "contents_label", "brand")
   search_result <- search_result %>%
     filter(category == "Generic foods")
@@ -148,16 +155,12 @@ compare_nutrients <- function(itemA, itemB, measure) {
   measure <- enquo(measure)
   measure <- as.character(measure)[2]
 
-  # a <- get_nutrients(itemA, all)[1,]
-  # b <- get_nutrients(itemB, all)[1,]
-  # dat <- rbind(a, b)
-
   a <- search_food(itemA, picture = FALSE)[1,]
   b <- search_food(itemB, picture = FALSE)[1,]
   dat <- rbind(a, b)
 
-  ggplot(data = dat, aes(x = label, y = as.numeric(dat[, measure]))) +
-    geom_bar(stat = "identity", aes(fill = label)) +
+  ggplot(data = dat, aes(x = search_result, y = as.numeric(dat[, measure]))) +
+    geom_bar(stat = "identity", aes(fill = search_result)) +
     ylab(measure) +
     theme_minimal() +
     scale_fill_manual(values=c('plum','lightblue4')) +

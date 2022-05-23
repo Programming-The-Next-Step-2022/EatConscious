@@ -4,10 +4,12 @@
 \alias{search_food}
 \title{\emph{search_food}: search for food items.}
 \usage{
-search_food(food)
+search_food(food, picture = TRUE)
 }
 \arguments{
 \item{food}{The food item, inputed as a string, that you would like to search for.}
+
+\item{picture}{Logical argument. Should a picture accompany the search result? Default = TRUE.}
 }
 \value{
 A table of nutritional information for each search hit and a picture of the first hit.
