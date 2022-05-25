@@ -8,9 +8,9 @@
 #' @import dplyr
 #' @import ggplot2
 #' @import patchwork
-#' @importFrom jsonlite fromJSON
+#' @import magick
 NULL
-#' @importFrom magick image_read
+#' @importFrom jsonlite fromJSON
 NULL
 
 # ------------------------------------------------------------------------------

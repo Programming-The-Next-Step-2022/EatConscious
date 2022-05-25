@@ -32,7 +32,7 @@ dat_bycountry$WF_Type <- dat_global$WF_Type
 dat_bycountry <- dat_bycountry %>%
   select(Product, WF_Type, everything())
 countries = colnames(dat_bycountry)[3:ncol(dat_bycountry)]
-continents <- c(rep(NA, 2), countrycode(countries, origin = "iso2c", destination = "continent"))
+continents <- c(rep(NA, 2), countrycode(countries, origin = "fips", destination = "continent"))
 dat_bycountry <- rbind(continents, dat_bycountry)
 
 
@@ -48,7 +48,15 @@ dat_byregion <- dat_byregion %>%
 # Global water footprint
 # ------------------------------------------------------------------------------
 
-GlobalWF <- function(food) {
+#' \emph{wf_global}: retrieve the global water footprint of a food item.
+#'
+#' @param food Any food item.
+#' @return A list, including a table with the global blue, green, and grey water footprint of the food item and nutritional information about the food item.
+#' @examples
+#' wf_global(potato)
+#'
+#' @export
+wf_global <- function(food) {
 
   food <- enquo(food)
   food <- as.character(food)[2]
@@ -57,14 +65,23 @@ GlobalWF <- function(food) {
   global_wf_table$AverageWF <- as.numeric(global_wf_table$AverageWF)
   global_wf_table$WF_Type <- as.factor(global_wf_table$WF_Type)
 
-  global_wf_table[1:3, ]
+  return(list("water footprint" = global_wf_table[1:3, ], "nutrition" = search_food(food)))
+
 }
 
 # ------------------------------------------------------------------------------
 # Visualize global water footprint
 # ------------------------------------------------------------------------------
 
-GlobalWF_plot <- function(food) {
+#' \emph{plot_wf_global}: visualize the global water footprint of a food item.
+#'
+#' @param food Any food item.
+#' @return A plot with the global blue, green, and grey water footprint of the food item.
+#' @examples
+#' plot_wf_global(potato)
+#'
+#' @export
+plot_wf_global <- function(food) {
 
   food <- enquo(food)
   food <- as.character(food)[2]
@@ -93,14 +110,23 @@ GlobalWF_plot <- function(food) {
 # Water footprint per country
 # ------------------------------------------------------------------------------
 
-WFCountry <- function(food, country) {
+#' \emph{wf_country}: retrieve the water footprint of a food item in a specific country.
+#'
+#' @param food Any food item.
+#' @param country A two-letter country code according to the FIPS country codes.
+#' @return A table with the blue, green, and grey water footprint of the food item in that country.
+#' @examples
+#' wf_country(potato, NL)
+#'
+#' @export
+wf_country <- function(food, country) {
 
   food <- enquo(food)
   food <- as.character(food)[2]
   country <- enquo(country)
   country <- as.character(country)[2]
 
-  country_wf_table <- dat_bycountry[grep(food, dat_global$Product, ignore.case = TRUE),]
+  country_wf_table <- dat_bycountry[grep(food, dat_bycountry$Product, ignore.case = TRUE),]
   country_wf_table <- country_wf_table[, c("Product", "WF_Type", country)]
 
   country_wf_table[1:3, ]
@@ -108,10 +134,19 @@ WFCountry <- function(food, country) {
 }
 
 # ------------------------------------------------------------------------------
-# Visualize water footprint per country
+# Visualize water footprint across countries
 # ------------------------------------------------------------------------------
 
-WFCountry_plot <- function(food, continent) {
+#' \emph{wf_country_plot}: plot the water footprint of a food item across countries in a continent.
+#'
+#' @param food Any food item.
+#' @param continent Specify the continent. Options: Americas, Africa, Asia, Oceania, Europe.
+#' @return A plot visualizing the blue, green, and grey water footprint of the food item per country in the specified continent.
+#' @examples
+#' wf_country_plot(potato, Europe)
+#'
+#' @export
+wf_country_plot <- function(food, continent) {
 
   food <- enquo(food)
   food <- as.character(food)[2]
@@ -142,7 +177,7 @@ WFCountry_plot <- function(food, continent) {
     theme_minimal() +
     theme(axis.text.x = element_text(size = 12),
           plot.title = element_text(hjust = 0.5),
-          axis.title.x = element_blank())
+          axis.title.x = element_blank()) +
     coord_polar(theta = "x")
 
   p
@@ -161,8 +196,16 @@ WFCountry_plot <- function(food, continent) {
 # Water footprint per region in country
 # ------------------------------------------------------------------------------
 
-
-WFRegion <- function(food, country, rows = 3) {
+#' \emph{wf_region}: retrieve the water footprint of a food item across regions of a country.
+#'
+#' @param food Any food item.
+#' @param country A two-letter country code.
+#' @return A table of the blue, green, and grey water footprint of the food item per region in the specified country.
+#' @examples
+#' wf_region(potato, Netherlands)
+#'
+#' @export
+wf_region <- function(food, country) {
 
   food <- enquo(food)
   food <- as.character(food)[2]
@@ -172,7 +215,7 @@ WFRegion <- function(food, country, rows = 3) {
   country_wf_table <- dat_byregion[, c(1:2, grep(country, dat_byregion))]
   country_wf_table <- country_wf_table[grep(food, dat_byregion$Product, ignore.case = TRUE), ]
 
-  country_wf_table[1:rows, ]
+  country_wf_table[1:3, ]
 
 }
 
@@ -180,7 +223,16 @@ WFRegion <- function(food, country, rows = 3) {
 # Visualize water footprint per region in country
 # ------------------------------------------------------------------------------
 
-WFRegion_plot <- function(food, country) {
+#' \emph{wf_region_plot}: plot the water footprint of a food item across regions of a country.
+#'
+#' @param food Any food item.
+#' @param country A two-letter country code.
+#' @return A plot of the blue, green, and grey water footprint of the food item per region in the specified country.
+#' @examples
+#' wf_region_plot(potato, Netherlands)
+#'
+#' @export
+wf_region_plot <- function(food, country) {
 
   food <- enquo(food)
   food <- as.character(food)[2]
