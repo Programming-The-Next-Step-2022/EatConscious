@@ -4,6 +4,8 @@
 
 #' @import tidyverse
 #' @importFrom plotly ggplotly
+#' @import countrycode
+NULL
 
 # ------------------------------------------------------------------------------
 # Data
@@ -29,6 +31,10 @@ dat_bycountry$Product <- all_products$product
 dat_bycountry$WF_Type <- dat_global$WF_Type
 dat_bycountry <- dat_bycountry %>%
   select(Product, WF_Type, everything())
+countries = colnames(dat_bycountry)[3:ncol(dat_bycountry)]
+continents <- c(rep(NA, 2), countrycode(countries, origin = "iso2c", destination = "continent"))
+dat_bycountry <- rbind(continents, dat_bycountry)
+
 
 dat_byregion <- dat[-c(1:3, 1066:nrow(dat)), ]
 colnames(dat_byregion) <- dat_byregion[2,]
@@ -70,11 +76,14 @@ GlobalWF_plot <- function(food) {
   p <- ggplot(data = dat_plot,
          mapping = aes(x = WF_Type, y = AverageWF, fill = WF_Type)) +
     geom_bar(stat = "identity") +
-    scale_fill_manual(values = c("lightblue", "darkseagreen", "slategrey")) +
+    scale_fill_manual(labels = c("sourced water", "water from precipitation", "fresh water required to assimilate pollutants"),
+                      values = c("lightblue", "darkseagreen", "slategrey")) +
     labs(fill = "Water Footprint") +
     ggtitle(paste0("Global Water Footprint of Food Product: ", food)) +
+    xlab("Water Footprint") +
     ylab("Global Average WF (cubicL/ton)") +
-    theme_minimal()
+    theme_minimal() +
+    theme(plot.title = element_text(hjust = 0.5))
 
   p
 
@@ -102,16 +111,18 @@ WFCountry <- function(food, country) {
 # Visualize water footprint per country
 # ------------------------------------------------------------------------------
 
-WFCountry_plot <- function(food) {
+WFCountry_plot <- function(food, continent) {
 
   food <- enquo(food)
   food <- as.character(food)[2]
+  continent <- enquo(continent)
+  continent <- as.character(continent)[2]
 
-  country_wf_table <- dat_bycountry[grep(food, dat_global$Product, ignore.case = TRUE),]
+  country_wf_table <- dat_bycountry[grep(food, dat_global$Product, ignore.case = TRUE),][, grep(continent, dat_bycountry)]
   dat_plot <- as.data.frame(t(country_wf_table[1:3, ]))[-c(1:2), ]
   colnames(dat_plot) <- c("Green", "Blue", "Grey")
 
-  dat_plot <- data.frame(country = rep(colnames(country_wf_table)[3:ncol(country_wf_table)], each = 3),
+  dat_plot <- data.frame(Country = rep(colnames(country_wf_table)[3:ncol(country_wf_table)], each = 3),
                          WF_Type = NA,
                          avgWF = NA)
   dat_plot$WF_Type <- rep(c("Green", "Blue", "Grey"), times = nrow(dat_plot)/3)
@@ -121,15 +132,28 @@ WFCountry_plot <- function(food) {
   dat_plot <- dat_plot %>%
     arrange(avgWF)
 
-  p <- ggplot(data = dat_plot, aes(x = country, y = avgWF, fill = WF_Type)) +
+  p <- ggplot(data = dat_plot, aes(x = Country, y = avgWF, fill = WF_Type)) +
     geom_bar(stat = "identity") +
-    scale_fill_manual(values = c("lightblue", "darkseagreen", "slategrey")) +
+    scale_fill_manual(labels = c("sourced water", "water from precipitation", "fresh water required to assimilate pollutants"),
+                      values = c("lightblue", "darkseagreen", "slategrey")) +
     labs(fill = "Water Footprint") +
     ylab("Global Average WF (cubicL/ton)") +
-    ggtitle(paste0("Water Footprint of ", food, " per country")) +
-    theme_minimal()
+    ggtitle(paste0("Water Footprint of ", food, " per country in ", continent)) +
+    theme_minimal() +
+    theme(axis.text.x = element_text(size = 12),
+          plot.title = element_text(hjust = 0.5),
+          axis.title.x = element_blank())
+    coord_polar(theta = "x")
 
-  ggplotly(p)
+  p
+
+
+  # Need to revert to standard barchart to make interactive chart work:
+  # ggplotly(p) %>%
+  #   layout(showlegend = FALSE,
+  #          xaxis = list(tite = FALSE,
+  #                       showticklabels=FALSE))
+
 }
 
 
@@ -169,7 +193,7 @@ WFRegion_plot <- function(food, country) {
   dat_plot <- as.data.frame(t(country_wf_table[1:3, ]))[-c(1:2), ]
   colnames(dat_plot) <- c("Green", "Blue", "Grey")
 
-  dat_plot <- data.frame(region = rep(colnames(country_wf_table)[3:ncol(country_wf_table)], each = 3),
+  dat_plot <- data.frame(Region = rep(colnames(country_wf_table)[3:ncol(country_wf_table)], each = 3),
                          WF_Type = NA,
                          avgWF = NA)
   dat_plot$WF_Type <- rep(c("Green", "Blue", "Grey"), times = nrow(dat_plot)/3)
@@ -181,15 +205,20 @@ WFRegion_plot <- function(food, country) {
     group_by(WF_Type) %>%
     arrange(avgWF) %>%
 
-    ggplot(aes(x = region, y = avgWF, fill = WF_Type)) +
+    ggplot(aes(x = Region, y = avgWF, fill = WF_Type)) +
     geom_bar(stat = "identity", width = 0.9) +
-    scale_fill_manual(values = c("lightblue", "darkseagreen", "slategrey")) +
-    labs(fill = "Water Footprint") +
-    ylab("Global Average WF (cubicL/ton)") +
-    ggtitle(paste0("Water Footprint of ", food, " per Region in ", country)) +
-    theme_minimal()
+    scale_fill_manual(labels = c("sourced water", "water from precipitation", "fresh water required to assimilate pollutants"),
+                      values = c("lightblue", "darkseagreen", "slategrey")) +
+    labs(title = paste0("Water Footprint of ", food, " per Region in ", country),
+         fill = "Water Footprint") +
+    ylab("Average WF (cubicL/ton)") +
+    theme_minimal() +
+    theme(axis.text.x = element_text(angle = 60, hjust=1),
+          plot.title = element_text(hjust = 0.5))
 
-  ggplotly(p)
+  p
+
+  #ggplotly(p)
 
 }
 
@@ -197,5 +226,6 @@ WFRegion_plot <- function(food, country) {
 # Green = water from precipitation
 # Blue = water that has been sourced from surface or groundwater resources
 # Grey = the amount of fresh water required to assimilate pollutants to meet specific water quality standards
+
 
 
