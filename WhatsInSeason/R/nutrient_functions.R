@@ -52,9 +52,11 @@ search_food <- function(food, picture = TRUE) {
     filter(category == "Generic foods")
 
   if (picture == TRUE) {
-    img_url <- search_result$image[1]
-    pic <- image_read(img_url)
-    print(pic)
+    # img_url <- search_result$image[1]
+    # pic <- image_read(img_url)
+    # print(pic)
+
+    food_pic(food)
   }
 
   search_result <- as.data.frame(search_result[,3:8])
