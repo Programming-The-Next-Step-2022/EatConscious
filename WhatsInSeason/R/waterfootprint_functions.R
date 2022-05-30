@@ -58,14 +58,14 @@ dat_byregion <- dat_byregion %>%
 #' @export
 wf_global <- function(food) {
 
-  food <- enquo(food)
-  food <- as.character(food)[2]
+  # food <- enquo(food)
+  # food <- as.character(food)[2]
 
   global_wf_table <- dat_global[grep(food, dat_global$Product, ignore.case = TRUE),]
   global_wf_table$AverageWF <- as.numeric(global_wf_table$AverageWF)
   global_wf_table$WF_Type <- as.factor(global_wf_table$WF_Type)
 
-  return(list("water footprint" = global_wf_table[1:3, ], "nutrition" = search_food(food)))
+  global_wf_table[1:3, ]
 
 }
 
@@ -83,8 +83,8 @@ wf_global <- function(food) {
 #' @export
 plot_wf_global <- function(food) {
 
-  food <- enquo(food)
-  food <- as.character(food)[2]
+  # food <- enquo(food)
+  # food <- as.character(food)[2]
 
   dat_plot <- dat_global[grep(food, dat_global$Product, ignore.case = TRUE),]
   dat_plot <- dat_plot[1:3, ]
@@ -121,10 +121,10 @@ plot_wf_global <- function(food) {
 #' @export
 wf_country <- function(food, country) {
 
-  food <- enquo(food)
-  food <- as.character(food)[2]
-  country <- enquo(country)
-  country <- as.character(country)[2]
+  # food <- enquo(food)
+  # food <- as.character(food)[2]
+  # country <- enquo(country)
+  # country <- as.character(country)[2]
 
   country_wf_table <- dat_bycountry[grep(food, dat_bycountry$Product, ignore.case = TRUE),]
   country_wf_table <- country_wf_table[, c("Product", "WF_Type", country)]
@@ -148,10 +148,10 @@ wf_country <- function(food, country) {
 #' @export
 wf_country_plot <- function(food, continent) {
 
-  food <- enquo(food)
-  food <- as.character(food)[2]
-  continent <- enquo(continent)
-  continent <- as.character(continent)[2]
+  # food <- enquo(food)
+  # food <- as.character(food)[2]
+  # continent <- enquo(continent)
+  # continent <- as.character(continent)[2]
 
   country_wf_table <- dat_bycountry[grep(food, dat_global$Product, ignore.case = TRUE),][, grep(continent, dat_bycountry)]
   dat_plot <- as.data.frame(t(country_wf_table[1:3, ]))[-c(1:2), ]
@@ -207,10 +207,10 @@ wf_country_plot <- function(food, continent) {
 #' @export
 wf_region <- function(food, country) {
 
-  food <- enquo(food)
-  food <- as.character(food)[2]
-  country <- enquo(country)
-  country <- as.character(country)[2]
+  # food <- enquo(food)
+  # food <- as.character(food)[2]
+  # country <- enquo(country)
+  # country <- as.character(country)[2]
 
   country_wf_table <- dat_byregion[, c(1:2, grep(country, dat_byregion))]
   country_wf_table <- country_wf_table[grep(food, dat_byregion$Product, ignore.case = TRUE), ]
@@ -234,10 +234,10 @@ wf_region <- function(food, country) {
 #' @export
 wf_region_plot <- function(food, country) {
 
-  food <- enquo(food)
-  food <- as.character(food)[2]
-  country <- enquo(country)
-  country <- as.character(country)[2]
+  # food <- enquo(food)
+  # food <- as.character(food)[2]
+  # country <- enquo(country)
+  # country <- as.character(country)[2]
 
   country_wf_table <- dat_byregion[, c(1:2, grep(country, dat_byregion))]
   country_wf_table <- country_wf_table[grep(food, dat_byregion$Product, ignore.case = TRUE), ]

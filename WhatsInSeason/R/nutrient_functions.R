@@ -28,12 +28,6 @@ NULL
 #' @export
 search_food <- function(food, picture = TRUE) {
 
-  enquo(food)
-  if (mode(food) != "character") {
-    stop ("search query must be entered as a string")
-  }
-
-
   url <- "https://edamam-food-and-grocery-database.p.rapidapi.com/parser"
   queryString <- list(ingr = food)
   food_raw <- VERB("GET", url,
