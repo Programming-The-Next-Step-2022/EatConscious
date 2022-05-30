@@ -7,7 +7,7 @@
 wf_global(food)
 }
 \arguments{
-\item{food}{Any food item.}
+\item{food}{Any food item. Input as string.}
 }
 \value{
 A list, including a table with the global blue, green, and grey water footprint of the food item and nutritional information about the food item.

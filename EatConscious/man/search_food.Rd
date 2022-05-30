@@ -7,7 +7,7 @@
 search_food(food, picture = TRUE)
 }
 \arguments{
-\item{food}{The food item, inputed as a string, that you would like to search for.}
+\item{food}{The food item, input as a string, that you would like to search for.}
 
 \item{picture}{Logical argument. Should a picture accompany the search result? Default = TRUE.}
 }

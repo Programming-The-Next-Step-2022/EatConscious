@@ -7,11 +7,11 @@
 compare_nutrients(itemA, itemB, measure)
 }
 \arguments{
-\item{itemA}{The first food item, inputed as a string, which you'd like to compare.}
+\item{itemA}{The first food item, input as a string, which you'd like to compare.}
 
-\item{itemB}{The second food item, inputed as a string, which you'd like to compare.}
+\item{itemB}{The second food item, input as a string, which you'd like to compare.}
 
-\item{measure}{The type of nutritional information, inputed as a string, which you'd like to compare the food on.
+\item{measure}{The type of nutritional information, input as a string, which you'd like to compare the food on.
 "calories" = The amount of calories (kcal).
 "percent_nutrients" = the percentage of the daily needed intake of nutrients in the food item.
 "fat" = amount of fat in grams.

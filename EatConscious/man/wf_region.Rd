@@ -7,9 +7,9 @@
 wf_region(food, country)
 }
 \arguments{
-\item{food}{Any food item.}
+\item{food}{Any food item. Input as string.}
 
-\item{country}{A two-letter country code.}
+\item{country}{Input country as string. Must be entered as full name of country in Sentence Case.}
 }
 \value{
 A table of the blue, green, and grey water footprint of the food item per region in the specified country.

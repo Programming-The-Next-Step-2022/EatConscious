@@ -5,6 +5,13 @@
 
 #'@import countrycode
 #'@import dplyr
+NULL
+
+# -----
+
+#'\emph{countrycodes}: retrieve country codes for the EatConscious package.
+#'@param continent String argument; for which continent would you like to retrieve the country codes?
+#'@return List of country codes within the specified continent.
 
 #'@export
 countrycodes <- function(continent) {

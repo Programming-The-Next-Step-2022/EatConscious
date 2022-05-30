@@ -7,9 +7,9 @@
 wf_country(food, country)
 }
 \arguments{
-\item{food}{Any food item.}
+\item{food}{Any food item. Input as string.}
 
-\item{country}{A two-letter country code according to the FIPS country codes.}
+\item{country}{A two-letter country code according to FIPS countrycodes. Input as string. Use the function countrycodes() to retrieve all country codes.}
 }
 \value{
 A table with the blue, green, and grey water footprint of the food item in that country.

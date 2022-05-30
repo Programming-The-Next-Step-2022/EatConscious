@@ -1,5 +1,5 @@
 # ============================================================================ #
-#           Nutrients functions for the package "WhatsInSeason"                #
+#           Nutrients functions for the package "EatConscious"                 #
 # ============================================================================ #
 
 # Required packages ------------------------------------------------------------
@@ -19,7 +19,7 @@ NULL
 
 #' \emph{search_food}: search for food items.
 #'
-#' @param food The food item, inputed as a string, that you would like to search for.
+#' @param food The food item, input as a string, that you would like to search for.
 #' @param picture Logical argument. Should a picture accompany the search result? Default = TRUE.
 #' @return A table of nutritional information for each search hit and a picture of the first hit.
 #' @examples
@@ -46,9 +46,6 @@ search_food <- function(food, picture = TRUE) {
     filter(category == "Generic foods")
 
   if (picture == TRUE) {
-    # img_url <- search_result$image[1]
-    # pic <- image_read(img_url)
-    # print(pic)
 
     food_pic(food)
   }
@@ -65,7 +62,7 @@ search_food <- function(food, picture = TRUE) {
 
 #' \emph{get_nutrients}: get nutritional information for food items.
 #'
-#' @param food  The food item, inputed as a string, you would like to search for.
+#' @param food  The food item you would like to search for. Input as a string.
 #'
 #' @param measure The type of nutritional information, inputed as a string, per serving of the specified food item.
 #'                "calories" = The amount of calories (kcal).
@@ -73,7 +70,7 @@ search_food <- function(food, picture = TRUE) {
 #'                "fat" = amount of fat in grams.
 #'                "carbohydrates" = amount of carbohydrates in grams.
 #'                "fibre" = amount of fibre in grams.
-#'                "all" = all nutrional information.
+#'                If no argument is passed, all nutritional information will be shown.
 #' @return A table of nutritional information for the food item.
 #' @examples
 #' get_nutrients("potato", "all") # get all nutritional information for all search hits of "potato"
@@ -81,11 +78,6 @@ search_food <- function(food, picture = TRUE) {
 #'
 #' @export
 get_nutrients <- function(food, measure) {
-
-  # food <- enquo(food)
-  # food <- as.character(food)[2]
-  # measure <- enquo(measure)
-  # measure <- as.character(measure)[2]
 
   url <- "https://edamam-food-and-grocery-database.p.rapidapi.com/parser"
 
@@ -130,9 +122,9 @@ get_nutrients <- function(food, measure) {
 
 #' \emph{compare_nutrients}: compare the nutritional information of two food items.
 #'
-#' @param itemA The first food item, inputed as a string, which you'd like to compare.
-#' @param itemB The second food item, inputed as a string, which you'd like to compare.
-#' @param measure The type of nutritional information, inputed as a string, which you'd like to compare the food on.
+#' @param itemA The first food item, input as a string, which you'd like to compare.
+#' @param itemB The second food item, input as a string, which you'd like to compare.
+#' @param measure The type of nutritional information, input as a string, which you'd like to compare the food on.
 #'                "calories" = The amount of calories (kcal).
 #'                "percent_nutrients" = the percentage of the daily needed intake of nutrients in the food item.
 #'                "fat" = amount of fat in grams.
@@ -143,13 +135,6 @@ get_nutrients <- function(food, measure) {
 #' compare_nutrients("potato", "sweet potato", "carbohydrates")
 #' @export
 compare_nutrients <- function(itemA, itemB, measure) {
-
-  # itemA <- enquo(itemA)
-  # itemA <- as.character(itemA)[2]
-  # itemB <- enquo(itemB)
-  # itemB <- as.character(itemB)[2]
-  # measure <- enquo(measure)
-  # measure <- as.character(measure)[2]
 
   a <- search_food(itemA, picture = FALSE)[1,]
   b <- search_food(itemB, picture = FALSE)[1,]
@@ -238,13 +223,6 @@ plot_nutrients <- function(food) {
 # ============================================================================ #
 # ============================================================================ #
 
-# notes
-
-# a way to not require string input in argument?
-# make default and optional arguments in functions? (e.g. "all" default if nothing else specified)
-# get_nutrients and search_food too similar, find way to make different!
-# make error messages
-# update documentation on get_nutrients (all does not need to be specified)
 
 
 

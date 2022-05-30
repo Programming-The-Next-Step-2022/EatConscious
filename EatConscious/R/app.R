@@ -114,7 +114,7 @@ GUI <- function() {
         food_pic(input$food)
       })
       output$globalplot <- renderPlot({
-        plot_wf_global(input$food)
+        wf_global_plot(input$food)
       })
       output$globaltable <- renderTable({
         as.data.frame(wf_global(input$food))

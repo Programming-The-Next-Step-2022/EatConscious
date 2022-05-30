@@ -28,7 +28,7 @@
 #'
 #'    Plot nutritional information of a food item with \emph{plot_nutrients()}
 #'
-#' @section Graphical User Interface
+#' @section Graphical User Interface:
 #'
 #'You can also interact with this data using the function \emph{GUI()}
 #'

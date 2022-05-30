@@ -7,9 +7,9 @@
 wf_country_plot(food, continent)
 }
 \arguments{
-\item{food}{Any food item.}
+\item{food}{Any food item. Input as string.}
 
-\item{continent}{Specify the continent. Options: Americas, Africa, Asia, Oceania, Europe.}
+\item{continent}{Specify the continent. Input as string. Options: Americas, Africa, Asia, Oceania, Europe.}
 }
 \value{
 A plot visualizing the blue, green, and grey water footprint of the food item per country in the specified continent.

@@ -7,7 +7,7 @@
 get_nutrients(food, measure)
 }
 \arguments{
-\item{food}{The food item, inputed as a string, you would like to search for.}
+\item{food}{The food item you would like to search for. Input as a string.}
 
 \item{measure}{The type of nutritional information, inputed as a string, per serving of the specified food item.
 "calories" = The amount of calories (kcal).
@@ -15,7 +15,7 @@ get_nutrients(food, measure)
 "fat" = amount of fat in grams.
 "carbohydrates" = amount of carbohydrates in grams.
 "fibre" = amount of fibre in grams.
-"all" = all nutrional information.}
+If no argument is passed, all nutritional information will be shown.}
 }
 \value{
 A table of nutritional information for the food item.
