@@ -6,15 +6,15 @@ output: html_document
 ---
 
 ```{r Load Packages, include=FALSE}
-library(tinytex)
 library(EatConscious)
 library(tidyverse)
-library(knitr)
 ```
 
 EatConscious is an r package intended to help you eat more consciously. It can retrieve and visualize nutritional and climate-impact data about most types of fresh produce.
 
 ## Water Footprint data
+
+<img src="www/image.jpg" width="200"/>
 
 Over 2.7 billion people are affected by scarce water resources yearly. The water footprint metric, created by Arjen Hoekstra, is a type of environmental footprint that helps us to understand how the human consumption of different products is affecting the earth's natural water sources. Making conscious choices about which products to consume will aid in reducing our water foot print and ultimately preserve water for people and nature.
 
@@ -95,7 +95,7 @@ The function **wf_country()** creates a table of water footprint data for a spec
 
 You should input the country name according to the FIPS country codes.
 
-```{r}
+```{r, warning = FALSE}
 # You can use the countrycodes() function to check what country code corresponds to which country within a specified continent.  
 head(countrycodes("Europe"))
 ```
@@ -119,7 +119,6 @@ wf_country_plot("wheat", "Europe")
 Some countries, such as the US, have very different climates in different regions. The **wf_region()** and **wf_region_plot()** retrieves water footprint data of a food item per region of the specified country.
 
 ```{r, warning = FALSE, fig.height = 10, fig.width=20}
-head(wf_region("corn", "America"))
 wf_region_plot("corn", "America")
 ```
 
@@ -167,7 +166,7 @@ plot_nutrients("lentils")
 
 The function **compare_nutrients()** returns a bar chart that plots a nutritional measure of two food items side-by-side.
 
-```{r} 
+```{r}
 compare_nutrients("lentils", "chickpeas", "fibre")
 ```
 
@@ -185,6 +184,6 @@ rbind(lentils, chickpeas)
 
 To check whether the food is available in the (nutritional) database, use the **search_food()** function. This function also retrieves a picture of the food, and a summary of its water footprint and nutrient data! To mask the image, you can use the argument `picture = FALSE`.
 
-```{r, warning = FALSE}
+```{r}
 search_food("banana")
 ```

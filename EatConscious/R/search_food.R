@@ -7,6 +7,7 @@
 #'@import tidyverse
 #'@import magick
 #'@import EatConscious
+NULL
 
 # ------------------------------------------------------------------------------
 # search_food
@@ -47,7 +48,8 @@ search_food <- function(food, picture = TRUE) {
 
   search_result <- as.data.frame(search_result[,3:8])
 
-  return(list("nutrients" = search_result, "water_footprint" = wf_global(food)))
+  list <- return(list("nutrients" = search_result, "water_footprint" = wf_global(food)))
+  print(list)
 
 }
 
