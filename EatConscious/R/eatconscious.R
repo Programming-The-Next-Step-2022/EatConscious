@@ -1,0 +1,38 @@
+#' EatConscious: Food information for eco-friendly and healthy eating!
+#'
+#' @section Water Footprint Functions:
+#'
+#'With the water footprint functions, you can:
+#'
+#'    Retrieve data about the global green, blue, and grey water footprint of food items with \emph{wf_global()}
+#'
+#'    Plot global data with \emph{wf_global_plot()}
+#'
+#'    Retrieve data about the green, blue and grey water footprint of food items across countries with \emph{wf_country()}
+#'
+#'    Plot national water footprint data across continents with \emph{wf_country_plot()}
+#'
+#'    Retrieve data about the green, blue, and grey water footprint of food items across regions within a country with \emph{wf_region()}
+#'
+#'    Plot regional data with \emph{wf_region_plot()}
+#'
+#' @section Nutrition Functions:
+#'
+#'With the nutrition functions, you can:
+#'
+#'    Search for foods and their corresponding nutritional information with \emph{search_food()}
+#'
+#'    Get specific nutritional information for food items with \emph{get_nutrients()}
+#'
+#'    Compare nutritional information of two different food items with \emph{compare_nutrients()}
+#'
+#'    Plot nutritional information of a food item with \emph{plot_nutrients()}
+#'
+#' @section Graphical User Interface
+#'
+#'You can also interact with this data using the function \emph{GUI()}
+#'
+#' @docType package
+#' @name EatConscious
+NULL
+#> NULL

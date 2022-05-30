@@ -1,5 +1,5 @@
 ---
-title: "WhatsInSeason"
+title: "EatConscious"
 author: "Annie Johansson"
 date: "5/26/2022"
 output: html_document
@@ -8,13 +8,13 @@ output: html_document
 ```{r Load Packages, include=FALSE}
 
 library(tinytex)
-library(WhatsInSeason)
+library(EatConscious)
 library(tidyverse)
 
 ```
 
 
-WhatsInSeason is an r package intended to help you eat more consciously. It can retrieve and visualize nutritional and climate-impact data about most types of fresh produce.  
+EatConscious is an r package intended to help you eat more consciously. It can retrieve and visualize nutritional and climate-impact data about most types of fresh produce.  
 
 # Water Footprint data 
 
@@ -98,7 +98,7 @@ wf_region_plot(corn, America)
 
 # Nutritional data  
   
-Several functions in the WhatsInSeason package allow you to retrieve and visualize nutritional data of fresh produce items. This data is taken from the Food Database API  https://www.edamam.com. With these functions you can:  
+Several functions in the EatConscious package allow you to retrieve and visualize nutritional data of fresh produce items. This data is taken from the Food Database API  https://www.edamam.com. With these functions you can:  
   
 * Search for food items in the database.  
 * View data about nutrients, calories, carbohydrates, fat, and fibre of food items.  

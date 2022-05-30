@@ -1,5 +1,5 @@
 #' @import shiny
-#' @import WhatsInSeason
+#' @import EatConscious
 
 # GUI wrapped in function ----
 
