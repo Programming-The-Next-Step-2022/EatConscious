@@ -82,10 +82,10 @@ search_food <- function(food, picture = TRUE) {
 #' @export
 get_nutrients <- function(food, measure) {
 
-  food <- enquo(food)
-  food <- as.character(food)[2]
-  measure <- enquo(measure)
-  measure <- as.character(measure)[2]
+  # food <- enquo(food)
+  # food <- as.character(food)[2]
+  # measure <- enquo(measure)
+  # measure <- as.character(measure)[2]
 
   url <- "https://edamam-food-and-grocery-database.p.rapidapi.com/parser"
 
@@ -144,12 +144,12 @@ get_nutrients <- function(food, measure) {
 #' @export
 compare_nutrients <- function(itemA, itemB, measure) {
 
-  itemA <- enquo(itemA)
-  itemA <- as.character(itemA)[2]
-  itemB <- enquo(itemB)
-  itemB <- as.character(itemB)[2]
-  measure <- enquo(measure)
-  measure <- as.character(measure)[2]
+  # itemA <- enquo(itemA)
+  # itemA <- as.character(itemA)[2]
+  # itemB <- enquo(itemB)
+  # itemB <- as.character(itemB)[2]
+  # measure <- enquo(measure)
+  # measure <- as.character(measure)[2]
 
   a <- search_food(itemA, picture = FALSE)[1,]
   b <- search_food(itemB, picture = FALSE)[1,]
@@ -177,8 +177,8 @@ compare_nutrients <- function(itemA, itemB, measure) {
 #' @export
 plot_nutrients <- function(food) {
 
-  food <- enquo(food)
-  food <- as.character(food)[2]
+  # food <- enquo(food)
+  # food <- as.character(food)[2]
 
   url <- "https://edamam-food-and-grocery-database.p.rapidapi.com/parser"
   queryString <- list(ingr = food)
