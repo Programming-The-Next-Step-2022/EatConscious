@@ -1,4 +1,4 @@
 library(testthat)
-library(WhatsInSeason)
+library(EatConscious)
 
-test_check("WhatsInSeason")
+test_check("EatConscious")
