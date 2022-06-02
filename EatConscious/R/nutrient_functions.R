@@ -93,8 +93,8 @@ get_nutrients <- function(food, measure) {
 #' @export
 compare_nutrients <- function(itemA, itemB, measure) {
 
-  a <- search_food(itemA, picture = FALSE)[1,]
-  b <- search_food(itemB, picture = FALSE)[1,]
+  a <- as.data.frame(search_food(itemA, picture = FALSE)$nutrients[1,])
+  b <- as.data.frame(search_food(itemB, picture = FALSE)$nutrients[1,])
   dat <- rbind(a, b)
 
   ggplot(data = dat, aes(x = search_result, y = as.numeric(dat[, measure]))) +

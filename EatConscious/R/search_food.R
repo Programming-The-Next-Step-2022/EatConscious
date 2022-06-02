@@ -3,10 +3,9 @@
 # ============================================================================ #
 
 #'@import httr
-#'@import jsonlite
+#'@importFrom jsonlite fromJSON
 #'@import tidyverse
 #'@import magick
-#'@import EatConscious
 NULL
 
 # ------------------------------------------------------------------------------
