@@ -11,12 +11,14 @@ NULL
 # Data
 # ------------------------------------------------------------------------------
 
-dat <- read.csv("waterfootprintReport.csv", sep = ";", header = FALSE)
+dat <- wf_data
 dat <- dat[, c(4, 9:ncol(dat))]
 
+# Create global dataset
 dat_global <- dat[-c(1:6, 1066:nrow(dat)), 1:3]
 colnames(dat_global) <- c("Product", "WF_Type", "AverageWF")
 
+# Need to repeat product names across entire product column
 all_products <- data.frame(product = dat_global[, 1])
 all_products$product <- ifelse(all_products$product == "", NA, all_products$product)
 products <- rep(all_products$product, each = 3)
@@ -24,25 +26,27 @@ nona_products = products[!is.na(products)]
 all_products$product <- nona_products
 dat_global$Product <- all_products$product
 
+# Create national dataset
 dat_bycountry <- dat[-c(1,3, 1066:nrow(dat)), 9:ncol(dat)]
 colnames(dat_bycountry) <- dat_bycountry[1,]
 dat_bycountry <- dat_bycountry[-c(1:4), grep("CNTRY-average", dat_bycountry)]
-dat_bycountry$Product <- all_products$product
-dat_bycountry$WF_Type <- dat_global$WF_Type
+dat_bycountry$Product <- all_products$product # add product list
+dat_bycountry$WF_Type <- dat_global$WF_Type # add water footprint column
 dat_bycountry <- dat_bycountry %>%
-  select(Product, WF_Type, everything())
-countries = colnames(dat_bycountry)[3:ncol(dat_bycountry)]
-continents <- c(rep(NA, 2), countrycode(countries, origin = "fips", destination = "continent"))
-dat_bycountry <- rbind(continents, dat_bycountry)
+  select(Product, WF_Type, everything()) # order columns logically
 
+countries = colnames(dat_bycountry)[3:ncol(dat_bycountry)] # list of country codes
+continents <- c(rep(NA, 2), countrycode(countries, origin = "fips", destination = "continent")) # convert country codes to corresponding continent
+dat_bycountry <- rbind(continents, dat_bycountry) # bind continents to dataset
 
+# Create regional dataset
 dat_byregion <- dat[-c(1:3, 1066:nrow(dat)), ]
 colnames(dat_byregion) <- dat_byregion[2,]
-dat_byregion <- dat_byregion[-c(2:3), -c(1, grep("CNTRY-average", dat_byregion))]
-dat_byregion$Product <- c(NA, all_products$product)
-dat_byregion$WF_Type <- c(NA, dat_global$WF_Type)
+dat_byregion <- dat_byregion[-c(2:3), -c(1, grep("CNTRY-average", dat_byregion))] # delete unnecessary columns and rows
+dat_byregion$Product <- c(NA, all_products$product) # add product list
+dat_byregion$WF_Type <- c(NA, dat_global$WF_Type) # add water footprint column
 dat_byregion <- dat_byregion %>%
-  select(Product, WF_Type, everything())
+  select(Product, WF_Type, everything()) # order columns logically
 
 # ------------------------------------------------------------------------------
 # Global water footprint

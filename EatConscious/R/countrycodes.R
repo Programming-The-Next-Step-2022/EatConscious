@@ -16,7 +16,7 @@ NULL
 #'@export
 countrycodes <- function(continent) {
 
-  dat <- read.csv("waterfootprintReport.csv", sep = ";", header = FALSE)
+  dat <- wf_data
   dat <- dat[, c(4, 9:ncol(dat))]
 
   dat_global <- dat[-c(1:6, 1066:nrow(dat)), 1:3]
