@@ -12,5 +12,16 @@ RoxygenNote: 7.1.2
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
+Imports:
+  shiny,
+  shinythemes,
+  gt,
+  magick,
+  countrycode,
+  tidyverse,
+  httr,
+  ggplot2,
+  patchwork,
+  jsonlite
 Depends: 
-    R (>= 2.10)
+  R (>= 2.10)
