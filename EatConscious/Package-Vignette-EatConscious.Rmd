@@ -10,11 +10,13 @@ library(EatConscious)
 library(tidyverse)
 ```
 
+![](https://images.unsplash.com/photo-1515150144380-bca9f1650ed9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80){width="350"}
+
 EatConscious is an r package intended to help you eat more consciously. It can retrieve and visualize nutritional and climate-impact data about most types of fresh produce.
 
 ## Water Footprint data
 
-<img src="www/image.jpg" width="200"/>
+<!-- <img src="www/image.jpg" width="200"/> -->
 
 Over 2.7 billion people are affected by scarce water resources yearly. The water footprint metric, created by Arjen Hoekstra, is a type of environmental footprint that helps us to understand how the human consumption of different products is affecting the earth's natural water sources. Making conscious choices about which products to consume will aid in reducing our water foot print and ultimately preserve water for people and nature.
 
@@ -49,54 +51,63 @@ Read more: <https://waterfootprint.org/en/water-footprint/what-is-water-footprin
 ### Installing the package
 
 ```{r, eval = FALSE}
-#library(devtools)
-#install_github("Programming-The-Next-Step-2022/EatConscious")
+devtools::install_github("Programming-The-Next-Step-2022/EatConscious/EatConscious")
 ```
 
 ### Graphical User Interface
 
 You can interact with the EatConscious package through a Graphical User Interface (GUI). Here, the same functions as are outlined below are wrapped into an interactive environment where you can search for food and plot the respective data.\
-To access the GUI, simply run the GUI() function in your console.
+To access the GUI, simply run the `GUI()` function in your console.
 
 ```{r, eval = FALSE}
 GUI()
 ```
 
-**[ENTER SHINY SCREENSHOTS HERE]**
+![](images/shiny%20screenshot.jpeg)
 
 Below the functions underlying the GUI (and which can be used in your own R environment) are outlined.
 
 ## Water Footprint Functions
 
-The water footprint functions were created using data from the Water Footprint Network. The raw dataset can be found in the GitHub repository.
+The water footprint functions were created using data from the Water Footprint Network. The dataset is saved within the package and is called "wf_data".
+
+```{r, eval = FALSE}
+data("wf_data")
+
+# Read more about the dataset: 
+?wf_data
+```
 
 #### Measures
 
-The Water Footprint of each food item is measured as the cubic Liters of water consumed per ton of the food item produced (cubicL/ton).
+The Water Footprint of each food item is measured as the cubic Liters of water consumed per ton of the food item produced (L^3^/ton).
 
 ### Retrieve and visualize global water footprint data
 
-The function **wf_global()** creates a table of water footprint data for a specific food item. Let's say you're interested in the global green, blue, and grey water footprint for the production of bananas:
+##### wf_global and wf_global_plot
+
+The function `wf_global()` creates a table of water footprint data for a specific food item. Let's say you're interested in the global green, blue, and grey water footprint for the production of bananas:
 
 ```{r, warning = FALSE}
 wf_global("banana") 
 ```
 
-You can plot this data with the function **wf_global_plot()**:
+You can plot this data with the function `wf_global_plot()`:
 
 ```{r, warning = FALSE}
-plot_wf_global("banana")
+wf_global_plot("banana")
 ```
 
 ### Retrieve and visualize national water footprint data
 
-The function **wf_country()** creates a table of water footprint data for a specific food item for a specified country.\
+##### wf_country and wf_country_plot
+
+The function `wf_country()` creates a table of water footprint data for a specific food item for a specified country.\
 **Arguments:** *food* and *country*.
 
-You should input the country name according to the FIPS country codes.
+You should input the country name according to the FIPS country codes. You can use the `countrycodes()` function to check what country code corresponds to which country within a specified continent. 
 
 ```{r, warning = FALSE}
-# You can use the countrycodes() function to check what country code corresponds to which country within a specified continent.  
 head(countrycodes("Europe"))
 ```
 
@@ -106,7 +117,7 @@ wf_country("wheat", "NL")
 ```
 
 It might be interesting to see the water footprint of wheat production in the Netherlands compared to other countries across Europe.\
-You can plot the national water footprints of all countries using the function **wf_country_plot**. This is done per continent.
+You can plot the national water footprints of all countries using the function `wf_country_plot`. This is done per continent.
 
 ```{r, warning = FALSE}
 wf_country_plot("wheat", "Europe")
@@ -116,7 +127,9 @@ wf_country_plot("wheat", "Europe")
 
 ### Retrieve and visualize regional water footprint data
 
-Some countries, such as the US, have very different climates in different regions. The **wf_region()** and **wf_region_plot()** retrieves water footprint data of a food item per region of the specified country.
+##### wf_region and wf_region_plot
+
+Some countries, such as the US, have very different climates in different regions. The `wf_region()` and `wf_region_plot()` retrieves water footprint data of a food item per region of the specified country.
 
 ```{r, warning = FALSE, fig.height = 10, fig.width=20}
 wf_region_plot("corn", "America")
@@ -144,7 +157,7 @@ In all nutrient functions, the food argument works as a search tool through the 
 
 #### Return a table of nutritional data
 
-The **get_nutrients()** function returns a table of nutritional data for the specified food item. It takes two arguments, food and measure. If "all" is specified, it will return a table of all the nutritional measures for the food item.
+The `get_nutrients()` function returns a table of nutritional data for the specified food item. It takes two arguments, food and measure. If "all" is specified, it will return a table of all the nutritional measures for the food item.
 
 ```{r}
 get_nutrients("tomato", "all")
@@ -154,7 +167,7 @@ get_nutrients("carrot", "carbohydrates")
 
 #### Plot nutritional data
 
-The function **plot_nutrients()** returns two pie charts that display the percentage of recommended daily nutrient intake that one serving of the food item gives.
+The function `plot_nutrients()` returns two pie charts that display the percentage of recommended daily nutrient intake that one serving of the food item gives.
 
 ```{r }
 plot_nutrients("lentils")
@@ -164,7 +177,7 @@ plot_nutrients("lentils")
 
 #### Compare nutritional data
 
-The function **compare_nutrients()** returns a bar chart that plots a nutritional measure of two food items side-by-side.
+The function `compare_nutrients()` returns a bar chart that plots a nutritional measure of two food items side-by-side.
 
 ```{r}
 compare_nutrients("lentils", "chickpeas", "fibre")
@@ -182,7 +195,7 @@ rbind(lentils, chickpeas)
 
 ## Search function
 
-To check whether the food is available in the (nutritional) database, use the **search_food()** function. This function also retrieves a picture of the food, and a summary of its water footprint and nutrient data! To mask the image, you can use the argument `picture = FALSE`.
+To check whether the food is available in the (nutritional) database, use the `search_food()` function. This function also retrieves a picture of the food, and a summary of its water footprint and nutrient data! To mask the image, you can use the argument `picture = FALSE`.
 
 ```{r}
 search_food("banana")
