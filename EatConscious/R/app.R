@@ -1,5 +1,6 @@
 #' @import shiny
 #' @import shinythemes
+#' @import gt
 NULL
 
 #' @importFrom magick image_read
@@ -223,14 +224,5 @@ GUI <- function() {
     shinyApp(ui, server)
 
 }
-
-GUI()
-
-library(shiny)
-library(shinythemes)
-library(gt)
-library(EatConscious)
-library(magick)
-
 
 

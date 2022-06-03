@@ -16,6 +16,7 @@ NULL
 #'@export
 countrycodes <- function(continent) {
 
+  data("wf_data")
   dat <- wf_data
   dat <- dat[, c(4, 9:ncol(dat))]
 
