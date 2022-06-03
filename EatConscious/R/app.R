@@ -39,7 +39,7 @@ GUI <- function() {
                               The dataset comprises the green, blue, and grey water footprints for a wide range of food
                                               products on a global, national, and regional scale."),
                                    HTML("<br><br><br>"),
-                                   gt_output("wf_types")),
+                                   gt::gt_output("wf_types")),
                             column(width = 4,
                                    plotOutput("waterimg2"))),
                           tags$body("Read  more about the Water Footprint:"),
