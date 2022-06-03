@@ -1,6 +1,5 @@
 #' @import shiny
 #' @import shinythemes
-#' @import gt
 NULL
 
 #' @importFrom magick image_read
