@@ -162,7 +162,7 @@ GUI <- function() {
         par(mar = c(0, 0, 0, 0))
         plot(pic)
       })
-      output$wf_types <- render_gt({
+      output$wf_types <- gt::render_gt({
         dat <- data.frame(Type = c("Green", "Blue", "Grey"),
                           Explanation = c("Water acquired by the crop/plant directly from natural sources, such as precipitation.",
                                           "Water that has been sourced from surface or groundwater resources.",
