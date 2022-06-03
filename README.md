@@ -1,12 +1,12 @@
-## What's in Season? 
+## Eat Conscious
 
-An important step in becoming more eco-friendly is to consume local and seasonal produce.  
-This package is meant to make the process of eco-conscious consumption easier.  
-  
-The package will consist of different functions all designed to return information about seasonal food. The main function "whatsinseason()" will require 2 arguments: time and place, and it will return a list of produce that is in season for that time and place. 
 
-### Ideas for further functions that can be built into this package:  
+EatConscious is an r package intended to help you eat more consciously. It can retrieve and visualize nutritional and climate-impact data about most types of fresh produce.  
   
-* Data about the climate impact of each fruit/vegetable.  
-* Links to online recipies including the fruit/vegetable.  
+The package consists of different functions all designed to return information about various food items. There are two main categories of functions:    
+    
+* (1) Water Footprint functions, designed to retrieve data about the amount of water needed for the production of the food item on a global, national, and regional level.    
+* (2) Nutrient functions, designed to retrieve daily nutrients intake-, calorie-, fat-, carbohydrate-, and fibre-data about food items.    
+
+You can also interact with a Graphical User Interface with the GUI() function. 
 
